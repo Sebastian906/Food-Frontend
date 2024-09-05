@@ -25,6 +25,7 @@ const PlaceOrder = () => {
                     <input type="text" placeholder='País' />
                 </div>
                 <input type="text" placeholder='Número telefónico' />
+            </div>
                 <div className='place-order-right'>
                     <div className='cart-total'>
                         <h2>Total en el Carrito</h2>
@@ -47,7 +48,6 @@ const PlaceOrder = () => {
                         <button>PROCEDA A PAGAR</button>
                     </div>
                 </div>
-            </div>
         </form>
     )
 }
