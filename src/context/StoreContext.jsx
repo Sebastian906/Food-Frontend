@@ -16,14 +16,14 @@ const StoreContextProvider = (props) => {
         } else {
             setCartItems((prev)=>({...prev,[itemId]:prev[itemId]+1}))
         } if (token) {
-            await axios.post(url+'/api/cart/add',{itemId},{headers:{token}})
+            await axios.post(url+"/api/cart/add",{itemId},{headers:{token}})
         }
     }
 
     const removeFromCart = async (itemId) => {
         setCartItems((prev)=>({...prev,[itemId]:prev[itemId]-1}))
         if (token) {
-            await axios.post(url+'/api/cart/remove',{itemId},{headers:{token}})
+            await axios.post(url+"/api/cart/remove",{itemId},{headers:{token}})
         }
     }
 
@@ -43,15 +43,21 @@ const StoreContextProvider = (props) => {
         setFoodList(response.data.data);
     }
 
+    const loadCartData = async (token) => {
+        const response = await axios.post(url+"/api/cart/get",{},{headers:{token}});
+        setCartItems(response.data.cartData);
+    }
+
     useEffect(()=>{
         async function loadData() {
             await fetchFoodList();
             if (localStorage.getItem("token")) {
                 setToken(localStorage.getItem("token"));
+                await loadCartData(localStorage.getItem("token"));
             }
         }
         loadData();
-    })
+    },[])
 
     const contextValue = {
         food_list,
